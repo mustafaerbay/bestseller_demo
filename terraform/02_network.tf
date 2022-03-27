@@ -5,7 +5,7 @@ resource "aws_vpc" "production-vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "${var.tag}_vpc"
+    Name        = "${var.tag}_vpc"
     Environment = "${var.environment}"
   }
 }
@@ -17,7 +17,7 @@ resource "aws_subnet" "public-subnet-1" {
   availability_zone = var.availability_zones[0]
 
   tags = {
-    Name = "${var.tag}-public-1"
+    Name        = "${var.tag}-public-1"
     Environment = "${var.environment}"
   }
 }
@@ -28,7 +28,7 @@ resource "aws_subnet" "public-subnet-2" {
   availability_zone = var.availability_zones[1]
 
   tags = {
-    Name = "${var.tag}-public-2"
+    Name        = "${var.tag}-public-2"
     Environment = "${var.environment}"
   }
 }
@@ -39,7 +39,7 @@ resource "aws_subnet" "private-subnet-1" {
   availability_zone = var.availability_zones[0]
 
   tags = {
-    Name = "${var.tag}-private-1"
+    Name        = "${var.tag}-private-1"
     Environment = "${var.environment}"
   }
 }
@@ -50,7 +50,7 @@ resource "aws_subnet" "private-subnet-2" {
   availability_zone = var.availability_zones[1]
 
   tags = {
-    Name = "${var.tag}-private-2"
+    Name        = "${var.tag}-private-2"
     Environment = "${var.environment}"
   }
 }
@@ -58,9 +58,9 @@ resource "aws_subnet" "private-subnet-2" {
 #Route Table for private subnet
 resource "aws_route_table" "public-route-table" {
   vpc_id = aws_vpc.production-vpc.id
-  
+
   tags = {
-    Name = "${var.tag}-public"
+    Name        = "${var.tag}-public"
     Environment = "${var.environment}"
   }
 }
@@ -68,7 +68,7 @@ resource "aws_route_table" "private-route-table" {
   vpc_id = aws_vpc.production-vpc.id
 
   tags = {
-    Name = "${var.tag}-private"
+    Name        = "${var.tag}-private"
     Environment = "${var.environment}"
   }
 }
@@ -96,7 +96,7 @@ resource "aws_internet_gateway" "production-igw" {
   vpc_id = aws_vpc.production-vpc.id
 
   tags = {
-    Name = "${var.tag}-igw"
+    Name        = "${var.tag}-igw"
     Environment = "${var.environment}"
   }
 }

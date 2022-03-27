@@ -38,3 +38,39 @@ variable "availability_zones" {
   type        = list(string)
   default     = ["us-west-2a", "us-west-2b"]
 }
+
+# load balancer
+variable "health_check_path" {
+  description = "Health check path for the default target group"
+  default     = "/"
+}
+
+#ec2 instance
+variable "instance_type" {
+  default = "t2.micro"
+}
+
+variable "ami" {
+  type        = string
+  description = "NGINX Open Source packaged by Bitnami"
+  default     = "ami-0c4679e50e254f385"
+}
+
+# auto scaling
+variable "autoscale_min" {
+  description = "Minimum autoscale (number of EC2)"
+  default     = "1"
+}
+variable "autoscale_max" {
+  description = "Maximum autoscale (number of EC2)"
+  default     = "3"
+}
+variable "autoscale_desired" {
+  description = "Desired autoscale (number of EC2)"
+  default     = "1"
+}
+
+variable "ssh_pubkey_file" {
+  description = "Path to an SSH public key"
+  default     = "~/.ssh/id_rsa.pub"
+}
