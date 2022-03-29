@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "my_static_website" {
-  bucket = "${var.bucketname}"
+  bucket = var.bucketname
 
   tags = {
     Name        = "${var.tag}"

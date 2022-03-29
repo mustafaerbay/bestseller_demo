@@ -76,7 +76,7 @@ variable "ssh_pubkey_file" {
 }
 
 variable "domain_name" {
-  type = string
+  type    = string
   default = "bestseller"
 }
 
