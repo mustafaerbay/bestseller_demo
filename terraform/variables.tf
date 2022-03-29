@@ -74,3 +74,19 @@ variable "ssh_pubkey_file" {
   description = "Path to an SSH public key"
   default     = "~/.ssh/id_rsa.pub"
 }
+
+variable "domain_name" {
+  type = string
+  default = "bestseller"
+}
+
+variable "website_root" {
+  type        = string
+  description = "Path to the root of website content"
+  default     = "../content"
+}
+variable "bucketname" {
+  type        = string
+  description = "Path to the root of website content"
+  default     = "my-tf-test-bucket-erbay"
+}

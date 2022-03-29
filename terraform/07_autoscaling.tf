@@ -1,33 +1,10 @@
-resource "aws_launch_template" "nginx" {
-  name_prefix   = "${var.tag}_nginx"
-  image_id      = "${var.ami}"
-  instance_type = "${var.instance_type}"
-  key_name = aws_key_pair.production.key_name
-  vpc_security_group_ids = [
-      aws_security_group.http-group.id
-   ]
-  monitoring {
-    enabled = true
-  }
-
-  tags = {
-    Name        = "${var.tag}_aws_launch_template"
-    Environment = "${var.environment}"
-  }
-}
-
-
-
 resource "aws_autoscaling_group" "nginx" {
   name                 = "${var.tag}_auto_scaling_group"
   min_size             = var.autoscale_min
   max_size             = var.autoscale_max
   desired_capacity     = var.autoscale_desired
   health_check_type    = "EC2"
-  launch_template {
-      id = aws_launch_template.nginx.id
-      version = "$Latest"
-  }
+  launch_configuration = aws_launch_configuration.ec2.name
 
   enabled_metrics = [
     "GroupMinSize",
@@ -37,15 +14,26 @@ resource "aws_autoscaling_group" "nginx" {
     "GroupTotalInstances"
   ]
 
+  wait_for_capacity_timeout = "3m"
   metrics_granularity = "1Minute"
-
+  termination_policies = ["OldestInstance"]
 
   vpc_zone_identifier  = [aws_subnet.private-subnet-1.id, aws_subnet.private-subnet-2.id]
-
   lifecycle {
     ignore_changes = [load_balancers, target_group_arns]
+    create_before_destroy = true
   }
 
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 25
+    }
+  }
+  depends_on        = [
+      aws_security_group.http-group,
+      aws_security_group.ssh-group
+      ]
   tag {
       key = "Name"
       value = "${var.tag}_aws_autoscaling_group"
