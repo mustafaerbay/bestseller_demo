@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "my_static_website" {
-  bucket = var.bucketname
+  bucket_prefix = "${var.tag}-${var.environment}-"
 
   tags = {
     Name        = "${var.tag}"
@@ -27,4 +27,8 @@ resource "aws_s3_object" "file" {
   source      = "${var.website_root}/${each.key}"
   source_hash = filemd5("${var.website_root}/${each.key}")
   acl         = "public-read"
+}
+
+data "aws_s3_bucket" "my_static_website" {
+  bucket = aws_s3_bucket.my_static_website.id
 }

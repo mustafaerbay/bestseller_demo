@@ -1,29 +1,40 @@
-# Requierements
+### Preconditions
 
-Launch a webserver on an EC2 instance with the following config:
+[Install Packer](https://learn.hashicorp.com/tutorials/packer/get-started-install-cli)
 
-- [ ] Must be allowed to read files from an S3 bucket you’ve created.
-
-- [ ] Inside an autoscaling group with scaling policies:
-
-  - scale-in: CPU utilization > 80%
-  - scale-out: CPU utilization < 60%
-  - minimum number of instances = 1
-  - maximum number of instances = 3
-
-- [ ] Inside a private subnet
-
-- [ ] Under a public load balancer
-
-- [ ] Install a webserver (Apache, NGINX, etc) through bootstrapping
-
-- [ ] The webserver should be accessible only through the load balancer
+[Install AWSCLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 
-### Expectations
+### Configure AWS credentials
+Packer and Terraform need to the AWS credentials so You need to export the keys below or you can use the aws CLI tool to configure credentials
 
-- Use Terraform (from 0.13 onwards)
+```
+aws configure 
+```
 
-- Provide clear instructions on how to execute your code so that it can be deployed by anyone.
+```
+$ export AWS_ACCESS_KEY_ID="anaccesskey"
+$ export AWS_SECRET_ACCESS_KEY="asecretkey"
+$ export AWS_DEFAULT_REGION="us-west-2"
+$ terraform plan
+```
 
-- Working index.html for the webserver. It could be as simple as a Hello World .
+### Packer 
+For aws EC2 instance, we need to build our own ami with packer to install awscli and nginx on top of the ubuntu image
+
+
+Go to "packer" directory and run below commands
+```
+packer validate aws-ubuntu.pkr.hcl
+```
+```
+packer build aws-ubuntu.pkr.hcl
+```
+Then get ami-id and use it as an input parameter of terraform.
+
+```
+terraform plan -var="ami=ami-XXXXXXXXXX" -out=plan
+```
+```
+terraform apply "plan"
+```

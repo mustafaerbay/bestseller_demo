@@ -52,8 +52,8 @@ variable "instance_type" {
 
 variable "ami" {
   type        = string
-  description = "NGINX Open Source packaged by Bitnami"
-  default     = "ami-0c4679e50e254f385"
+  description = "Packer build ubuntu ami with nginx"
+  default     = "ami-034dbce9676b1519e"
 }
 
 # auto scaling
