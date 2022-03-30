@@ -34,6 +34,7 @@ resource "aws_security_group" "load-balancer" {
 resource "aws_security_group" "ssh-group" {
   name        = "ssh-access-group"
   description = "Allow traffic to port 22 (SSH)"
+  vpc_id      = aws_vpc.production-vpc.id
 
   tags = {
     Name = "SSH Access Security Group"
@@ -68,3 +69,20 @@ resource "aws_security_group" "http-group" {
   }
 }
 
+resource "aws_security_group" "outbound-all" {
+  name        = "outbound-all"
+  description = "Allow all outbound traffic"
+  vpc_id      = aws_vpc.production-vpc.id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.tag}_outbound_all"
+    Environment = "${var.environment}"
+  }
+}

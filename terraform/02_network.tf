@@ -107,3 +107,8 @@ resource "aws_route" "public-internet-igw-route" {
   gateway_id             = aws_internet_gateway.production-igw.id
   destination_cidr_block = "0.0.0.0/0"
 }
+
+resource "aws_main_route_table_association" "a" {
+  vpc_id         = aws_vpc.production-vpc.id
+  route_table_id = aws_route_table.public-route-table.id
+}

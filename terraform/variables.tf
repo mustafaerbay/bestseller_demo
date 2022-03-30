@@ -50,10 +50,9 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
-variable "ami" {
+variable "instance_ami" {
   type        = string
-  description = "NGINX Open Source packaged by Bitnami"
-  default     = "ami-0c4679e50e254f385"
+  description = "Packer build ubuntu ami with nginx"
 }
 
 # auto scaling
@@ -73,4 +72,15 @@ variable "autoscale_desired" {
 variable "ssh_pubkey_file" {
   description = "Path to an SSH public key"
   default     = "~/.ssh/id_rsa.pub"
+}
+
+variable "domain_name" {
+  type    = string
+  default = "bestseller"
+}
+
+variable "website_root" {
+  type        = string
+  description = "Path to the root of website content"
+  default     = "../content"
 }

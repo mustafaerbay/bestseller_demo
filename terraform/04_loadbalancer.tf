@@ -40,10 +40,10 @@ resource "aws_lb_listener" "ec2-alb-http-listener" {
   load_balancer_arn = aws_lb.production.id
   port              = "80"
   protocol          = "HTTP"
-  depends_on        = [
-      aws_autoscaling_group.nginx,
-      aws_lb_target_group.default-target-group
-      ]
+  depends_on = [
+    aws_autoscaling_group.nginx,
+    aws_lb_target_group.default-target-group
+  ]
 
   default_action {
     type             = "forward"
