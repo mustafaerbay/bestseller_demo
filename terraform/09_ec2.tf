@@ -1,5 +1,5 @@
 resource "aws_launch_configuration" "ec2" {
-  name_prefix = "${var.tag}-nginx"
+  name_prefix                 = "${var.tag}-nginx"
   image_id                    = var.instance_ami
   instance_type               = var.instance_type
   security_groups             = [aws_security_group.http-group.id, aws_security_group.ssh-group.id, aws_security_group.outbound-all.id]
