@@ -43,6 +43,9 @@ aws-ubuntu.pkr.hcl
 Then get ami-id and use it as an input parameter of terraform.
 
 ### Terraform
+
+To initialize infrastructure run below command;
+
 ```
 terraform plan \
 -var="instance_ami=ami-0e25a85626e298436" \
@@ -54,4 +57,16 @@ terraform plan \
 ```
 ```
 terraform apply "plan"
+```
+
+To destroy :
+
+```
+terraform plan -destroy \
+-var="instance_ami=ami-0e25a85626e298436" \
+-var="region=us-west-2" \
+-var="tag=bestseller" \
+-var="instance_type=t2.micro" \
+-var="environment=prod" \
+-out=plan
 ```

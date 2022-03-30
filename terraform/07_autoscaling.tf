@@ -32,7 +32,8 @@ resource "aws_autoscaling_group" "nginx" {
   }
   depends_on = [
     aws_security_group.http-group,
-    aws_security_group.ssh-group
+    aws_security_group.ssh-group,
+    aws_s3_bucket.my_static_website
   ]
   tag {
     key                 = "Name"

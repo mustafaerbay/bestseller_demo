@@ -31,4 +31,8 @@ resource "aws_s3_object" "file" {
 
 data "aws_s3_bucket" "my_static_website" {
   bucket = aws_s3_bucket.my_static_website.id
+
+  depends_on = [
+    aws_s3_bucket.my_static_website,
+  ]
 }
