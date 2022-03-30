@@ -85,8 +85,3 @@ variable "website_root" {
   description = "Path to the root of website content"
   default     = "../content"
 }
-variable "bucketname" {
-  type        = string
-  description = "Path to the root of website content"
-  default     = "my-tf-test-bucket-erbay"
-}
