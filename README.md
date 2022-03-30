@@ -1,9 +1,11 @@
+### Architecture
+
+![Alt text](/screenshots/bestseller.drawio.png?raw=true "solution")
 ### Preconditions
 
 [Install Packer](https://learn.hashicorp.com/tutorials/packer/get-started-install-cli)
 
 [Install AWSCLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-
 
 ### Configure AWS credentials
 Packer and Terraform need to the AWS credentials so You need to export the keys below or you can use the aws CLI tool to configure credentials
@@ -42,6 +44,9 @@ aws-ubuntu.pkr.hcl
 ```
 Then get ami-id and use it as an input parameter of terraform.
 
+![Alt text](screenshots/Screen%20Shot%202022-03-30%20at%2015.44.38.png?raw=true "packer build")
+
+
 ### Terraform
 
 To initialize infrastructure run below command;
@@ -55,9 +60,13 @@ terraform plan \
 -var="environment=prod" \
 -out=plan
 ```
+![Alt text](screenshots/Screen%20Shot%202022-03-30%20at%2015.48.39.png?raw=true "solution")
+
 ```
 terraform apply "plan"
 ```
+
+![Alt text](screenshots/Screen%20Shot%202022-03-30%20at%2015.52.44.png.png?raw=true "solution")
 
 To destroy :
 
