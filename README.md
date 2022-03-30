@@ -66,7 +66,7 @@ terraform plan \
 terraform apply "plan"
 ```
 
-![Alt text](screenshots/Screen%20Shot%202022-03-30%20at%2015.52.44.png.png?raw=true "solution")
+![Alt text](screenshots/Screen%20Shot%202022-03-30%20at%2015.52.44.png?raw=true "solution")
 
 To destroy :
 
