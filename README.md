@@ -1,6 +1,17 @@
 ### Architecture
 
 ![Alt text](/screenshots/bestseller.drawio.png?raw=true "solution")
+
+According to the requirements, basically I need to have an EC2 instance working in the private network and connected with S3 bucket. AWS provides VPC endpoints to connect ec2 instance behind private network with S3 buckets. The other way is to route network traffice through NAT Gateway on public subnet. In this solution VPC endpoints used. And besides that I had to serve index.html with bootstrapped Nginx. So I decided to put index.html into the S3 bucket and get it from there during the deployment.
+
+Also I decided to create my own ami to use based on ubuntu-18.04 and initial bootstap configurations has been done in packer build part.
+
+As an output of packer build command you have ami-XXXXXXXX to use it as an variable of ami.
+
+
+Conclusion:
+To connect EC2 instance to the S3 bucket VPC endpoints has been used.
+nginx bootstrap has been done in with packer
 ### Preconditions
 
 [Install Packer](https://learn.hashicorp.com/tutorials/packer/get-started-install-cli)
