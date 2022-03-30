@@ -25,15 +25,32 @@ For aws EC2 instance, we need to build our own ami with packer to install awscli
 
 Go to "packer" directory and run below commands
 ```
-packer validate aws-ubuntu.pkr.hcl
+packer validate \
+-var 'region=us-west-2' \
+-var 'instance_type=t2.micro' \
+-var 'tag=bestseller' \
+-var 'environment=prod' \
+aws-ubuntu.pkr.hcl
 ```
 ```
-packer build aws-ubuntu.pkr.hcl
+packer build \
+-var 'region=us-west-2' \
+-var 'instance_type=t2.micro' \
+-var 'tag=bestseller' \
+-var 'environment=prod' \
+aws-ubuntu.pkr.hcl
 ```
 Then get ami-id and use it as an input parameter of terraform.
 
+### Terraform
 ```
-terraform plan -var="ami=ami-XXXXXXXXXX" -out=plan
+terraform plan \
+-var="instance_ami=ami-0e25a85626e298436" \
+-var="region=us-west-2" \
+-var="tag=bestseller" \
+-var="instance_type=t2.micro" \
+-var="environment=prod" \
+-out=plan
 ```
 ```
 terraform apply "plan"

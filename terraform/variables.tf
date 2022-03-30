@@ -50,10 +50,9 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
-variable "ami" {
+variable "instance_ami" {
   type        = string
   description = "Packer build ubuntu ami with nginx"
-  default     = "ami-034dbce9676b1519e"
 }
 
 # auto scaling

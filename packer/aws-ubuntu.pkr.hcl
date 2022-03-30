@@ -7,10 +7,23 @@ packer {
   }
 }
 
+variable "region" {
+  type        = string
+  description = "The AWS region to create resources in."
+  default     = "us-west-2"
+}
+variable "instance_type" {}
+variable "tag" {}
+variable "environment" {}
+
+locals {
+  timestamp = regex_replace(timestamp(), "[- TZ:]", "")
+}
+
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "learn-packer-linux-aws3"
-  instance_type = "t2.micro"
-  region        = "us-west-2"
+  ami_name      = "${var.tag}-${var.environment}-${local.timestamp}"
+  instance_type = "${var.instance_type}"
+  region        = "${var.region}"
   source_ami_filter {
     filters = {
       name                = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
@@ -25,7 +38,7 @@ source "amazon-ebs" "ubuntu" {
 }
 
 build {
-  name    = "learn-packer"
+  name    = "${var.tag}-${var.environment}"
   sources = [
     "source.amazon-ebs.ubuntu"
   ]
